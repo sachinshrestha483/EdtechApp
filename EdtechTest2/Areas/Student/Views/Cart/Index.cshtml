@@ -1,0 +1,127 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div id="vue-app">
+    <h3 class="display-4">
+        <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-cart2" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l1.25 5h8.22l1.25-5H3.14zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z" />
+        </svg> &nbsp;Cart
+    </h3>
+
+
+    <hr class="my-4">
+
+
+
+
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+
+            <div class="row">
+
+                <div class="col-md-8 p-4">
+                    <div class="bg-white text-dark p-4">
+                        <table class="table">
+                            <thead>
+                                <tr>
+
+                                    <th scope="col">Course Name</th>
+                                    <th scope="col">Coupon Code If Applied</th>
+                                    <th scope="col">Disc</th>
+
+                                    <th scope="col">Price</th>
+                                    <th>Remove</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="course in results">
+
+                                    <td>{{course.courseName}}</td>
+                                    <td>{{course.couponCode}}</td>
+                                    <td>{{course.discount}}</td>
+                                    <td>{{course.price}}</td>
+
+
+                                    <td>
+
+                                        <button type="button" v-on:click="deleteCourse(course.courseId)" class="btn btn-danger">
+                                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                                                <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+                                            </svg>
+                                        </button>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                </div>
+                <div class="col-md-4 p-4">
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body" align="center">
+
+
+                            <h3 class="card-title"> Cart Total- {{totalCartObject}}</h3>
+                            <input type="hidden" id="cartTotal"
+                                   v-bind:value="totalCartObject" />
+                          
+                                @*   <input type="submit" value="Pay Now" class="razorpay-payment-button">*@
+
+
+
+                        <div v-if="totalCartObject==0">
+                            <a asp-action="PurchaseFreeCourses" asp-controller="Cart" asp-area="Student" class="btn btn-info ">Checkout Free Courses</a>
+
+                        </div>
+
+
+                            <div v-else>
+                                <a asp-action="checkout" asp-controller="Payment" asp-area="Student" class="btn btn-info ">Checkout</a>
+
+                            </div>
+
+
+                          
+
+
+
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+    </div>
+
+
+
+</div>
+
+
+
+
+
+@section Scripts{
+
+
+
+   
+
+
+
+    <script src="~/js/userCart.js"></script>
+
+
+
+}

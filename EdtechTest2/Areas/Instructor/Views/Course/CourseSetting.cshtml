@@ -1,0 +1,206 @@
+﻿@model IEnumerable<EdtechTest2.Areas.Instructor.DemoModels.SectionsWithCourse>
+
+@{
+    ViewData["Title"] = "CourseSetting";
+}
+    <div id="vue-app">
+
+
+
+
+        <h1>CourseSetting</h1>
+
+
+        <br />
+        <br />
+
+
+
+
+        <form>
+            <div class="border border-dark p-4">
+
+                <div class="container">
+
+
+
+
+
+
+                    @if (Model == null)
+                    {
+                        <h1>Selest the Free Lectures</h1>
+                    }
+                    <h1 class="display-5">Select The Free Lectures</h1>
+                    <hr class="my-4">
+
+
+                    @foreach (var item in Model)
+                    {
+
+
+                        <div class="bg-light p-4 mb-3">
+
+                            <div class="row">
+
+                                <div class="col-md-9">
+                                    <h3>@item.section.Name</h3>
+                                </div>
+
+
+
+                                @if (item.section.isSectionHidden)
+                                {
+                                    <div class="col-md-1">
+
+                                        <input type="checkbox" checked v-on:change="showOrHideSection(@item.section.Id)" style="width:25px;height:25px;">
+
+
+                                    </div>
+                                }
+
+                                else
+                                {
+                                    <div class="col-md-1">
+
+                                        <input type="checkbox" v-on:change="showOrHideSection(@item.section.Id)" style="width:25px;height:25px;">
+
+
+                                    </div>
+                                }
+
+                                <div class="col-md-2">
+
+                                    <p class="text-left">Hide Section</p>
+
+
+                                </div>
+                            </div>
+
+
+                        </div>
+
+
+
+
+                        foreach (var item1 in item.Lectures)
+                        {
+
+
+
+                            <ul class="list-group">
+                                <li class="list-group-item ">
+
+                                    <div class="row">
+
+                                        <div class="col-md-7">
+                                            @item1.Name
+
+                                        </div>
+
+
+                                        @if (item1.isLectureHidden)
+                                        {
+                                            <div class="col-md-1">
+                                                <input type="checkbox" checked style="width:25px;height:25px;" v-on:change="showorHideLecture(@item1.id)">
+
+
+                                            </div>
+                                        }
+
+
+                                        else
+                                        {
+                                            <div class="col-md-1">
+                                                <input type="checkbox" v-on:change="showorHideLecture(@item1.id)" style="width:25px;height:25px;">
+
+
+                                            </div>
+                                        }
+
+
+
+
+                                        <div class="col-md-1">
+                                            <p> Hide Lecture</p>
+
+                                        </div>
+
+
+                                        @if (item1.isPreview)
+                                        {
+                                            <div class="col-md-1">
+                                                <input type="checkbox" v-on:change="setPreviewLecture(@item1.id)" checked style="width:25px;height:25px;" checked>
+
+
+                                            </div>
+                                        }
+
+                                        else
+                                        {
+                                            <div class="col-md-1">
+                                                <input type="checkbox" v-on:change="setPreviewLecture(@item1.id)" style="width:25px;height:25px;">
+
+
+                                            </div>
+                                        }
+
+                                        <div class="col-md-2">
+                                            <p> Set as  Previewable Lecture </p>
+
+                                        </div>
+
+                                    </div>
+
+
+
+
+                            </ul>
+                            <br />
+                            @*if (item1.isPreview == true)
+                            {
+
+
+
+                                <button type="button" class="btn btn-primary btn-lg btn-block">
+                                    <div>
+                                        <br />
+                                        <h4> <input type="checkbox" checked style="width:25px;height:25px;" id="jack @item1.id" v-bind:value='@item1.id' v-model="checkedNames"> &nbsp;&nbsp;&nbsp;@item1.Name</h4>
+                                        <br />
+                                    </div>
+                                </button>
+                            }
+
+                            else
+                            {
+                                <div class="alert alert-dark" role="alert">
+                                    <br />
+                                    <h4> <input type="checkbox" style="width:25px;height:25px;" id="jack @item1.id" v-bind:value='@item1.id' v-model="checkedNames"> &nbsp;&nbsp;&nbsp;@item1.Name</h4>
+                                    <br />
+                                </div>
+                            }*@
+
+
+                        }
+                        <br />
+                        <br />
+                    }
+
+
+
+
+
+
+                </div>
+
+
+            </div>
+        </form>
+    </div>
+
+@section Scripts{
+
+    <script src="~/js/SelectFreeLecture.js"></script>
+
+
+}

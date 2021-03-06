@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewData["Title"] = "CError";
+}
+
+
+<br />
+<br />
+<br />
+
+@if (ViewBag.ErrorMHeading == "" && ViewBag.ErrorMBody == "")
+{
+    <h1 class="display-4 text-center text-danger">Some Error Occured</h1>
+
+}
+
+<h1 class="display-4 text-center text-danger">@ViewBag.ErrorMHeading</h1>
+<p class="lead text-danger">@ViewBag.ErrorMBody</p>
+
+
+

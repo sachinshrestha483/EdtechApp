@@ -1,0 +1,247 @@
+﻿
+@using Microsoft.AspNetCore.Identity;
+
+@inject SignInManager<ApplicationUser> signInManager;
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - EdtechTest2</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+
+    <style>
+        .bs-example {
+            margin: 20px;
+        }
+
+        @@media screen and (min-width: 768px) {
+            .modal-dialog {
+                width: 700px; /* New width for default modal */
+            }
+
+            .modal-sm {
+                width: 350px; /* New width for small modal */
+            }
+        }
+
+        @@media screen and (min-width: 992px) {
+            .modal-lg {
+                width: 950px; /* New width for large modal */
+            }
+        }
+    </style>
+</head>
+<body>
+
+
+
+
+
+    <header id="EdtechApp">
+
+
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">EdtechTest2</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <ul class="navbar-nav">
+                        @if (signInManager.IsSignedIn(User))
+                        {
+                            //Get The User ANd Check whether The User is not Locked Out
+                            // Post for logout for no malicious ativity
+
+                        <form method="post" class="form-inline" asp-area="Identity" asp-action="index" asp-controller="Logout">
+                            <li class="nav-item">
+                                <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+                            </li>
+
+                            <li class="nav-item">
+
+                                <a class="nav-link text-dark" asp-area="User" asp-controller="Home" asp-action="Index">@User.Identity.Name</a>
+
+
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="student" asp-controller="Cart" asp-action="index">
+
+
+                                    <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-cart2" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l1.25 5h8.22l1.25-5H3.14zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z" />
+                                    </svg>
+
+                                </a>
+                            </li>
+
+
+
+                        </form>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="Identity" asp-controller="Register" asp-action="index">Register</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="Identity" asp-controller="Login" asp-action="index">Login</a>
+                            </li>
+
+                        }
+
+
+
+
+                    </ul>
+
+
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        @if (User.IsInRole(SD.AdminUser))
+                        {
+
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Administration Settings
+                                </a>
+
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" asp-area="identity" asp-action="ListRoles" asp-controller="Administration"> Roles And Settings</a>
+                                    <a class="dropdown-item" asp-area="identity" asp-action="ListUsers" asp-controller="Administration">Users And Settings </a>
+                                    <a class="dropdown-item" asp-area="Admin" asp-action="Index" asp-controller="Default">Default Settings </a>
+                                    <a class="dropdown-item" asp-area="Admin" asp-action="Index" asp-controller="Category">Category Settings</a>
+                                    <a class="dropdown-item" asp-area="Admin" asp-action="Index" asp-controller="Language">Language Settings</a>
+
+
+                                    <div class="dropdown-divider">
+                                    </div>
+                                    <a class="dropdown-item" href="#">Something else here</a>
+                                </div>
+                            </li>
+                        }
+
+
+
+
+
+
+
+                        @if (User.IsInRole(SD.AdminUser))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="Admin" asp-controller="home" asp-action="Index">Admin </a>
+                            </li>
+                        }
+
+
+
+                        @if (User.IsInRole(SD.InstructorUser))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="Instructor" asp-controller="home" asp-action="Index">Instructor</a>
+                            </li>
+                        }
+
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="instructor" asp-controller="Home" asp-action="Instructor">Teach on Edtech</a>
+                            </li>
+                        }
+
+
+                        @if (User.IsInRole(SD.StudentUser))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="Student" asp-controller="home" asp-action="myCourses">My Courses</a>
+                            </li>
+                        }
+
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>
+
+
+
+                    </ul>
+
+
+
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+
+        <main role="main" class="pb-3">
+
+            @if (ViewBag.GlobalMessage == "" || ViewBag.GlobalMessage == null)
+            {
+
+            }
+            else
+            {
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    @*<strong>Holy guacamole!</strong>*@ <!--You should check in on some of those fields below.-->
+                    @ViewBag.GlobalMessage
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            }
+
+
+            @RenderBody()
+        </main>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2020 - EdtechTest2 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+
+    <script src="https://cdn.tiny.cloud/1/dqmesquky3zxf9m3uipmxhl2racwrbe5276vsy1h1bvzm5d3/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+    <script src="~/lib/jquery-validate/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="~/js/_layout.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

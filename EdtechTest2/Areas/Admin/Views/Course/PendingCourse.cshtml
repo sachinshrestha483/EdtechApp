@@ -1,0 +1,104 @@
+﻿
+@{
+    ViewData["Title"] = "PendingCourse";
+}
+
+  
+
+    <div id="vue-app">
+
+        <h1>PendingCourses</h1>
+
+
+        <div class="d-flex flex-column">
+
+
+            <div v-for="course in results">
+
+                <div class="jumbotron jumbotron-fluid p-4 m-2">
+                    <div class="container">
+
+                        <h3>
+                            {{course.topicName}}
+                        </h3>
+                        <hr class="my-4">
+
+
+                        <h4>
+                            Course Main Contents
+                        </h4>
+                        <br />
+
+                        <a  v-bind:href="'/Instructor/course/CourseLandingPagePreview/'+course.id"     target="_blank" class="btn btn-secondary">Course Introduction Page </a>
+                        &nbsp;
+                        <a   v-bind:href="'/Instructor/course/coursepreview/'+course.id"       target="_blank" class="btn btn-secondary">Course Main Page</a>
+                        <hr class="my-4">
+
+
+                        <button type="button" class="btn btn-primary"  v-on:click="approveThecourse(course.id)">Approve It</button>
+
+                        &nbsp;
+                        &nbsp;
+
+                        <button type="button" class="btn btn-danger"     v-on:click="showRejectLectureSection(course.id)"  >Reject It </button>
+                        <div v-if="selectedrejectCourseId==course.id">
+                            <br />
+                            <br />
+                            <h3>Reject Course Section</h3>
+                            <hr class="my-4">
+
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">With textarea</span>
+                                </div>
+                                <textarea class="form-control"  v-model="couseRejectionReason" rows="10" aria-label="With textarea"></textarea>
+                            </div>
+                            <br />
+                            <br />
+                            <button type="button" v-on:click="rejectTheCourse(course.id)" class="btn btn-danger">Reject Course Review Application</button>
+                        </div>
+                       
+
+
+
+
+
+
+                    </div>
+                </div>
+
+
+            </div>
+
+           
+
+                
+
+
+
+
+        </div>
+
+
+
+
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+@section Scripts{
+
+    <script src="~/js/pendingCourse.js"></script>
+
+
+}

@@ -1,0 +1,47 @@
+﻿@model EdtechTest2.Areas.Admin.ViewModels.PhotoEditViewModel
+@{
+    ViewData["Title"] = "Update";
+}
+
+
+<div class="row">
+
+    <div class="col-md-12">
+        <form method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="All" class="text-danger">
+            </div>
+
+            @if (Model.Link != null)
+            {
+        <div class="container" align="center">
+            <img src="/images/@Model.Link" alt="..." class="img-thumbnail">
+
+        </div>
+            }
+
+
+            <div class="form-group">
+                <label asp-for="Name"></label>
+                <input disabled asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ContentString"></label>
+                <input asp-for="ContentString" class="form-control" />
+                <span asp-validation-for="ContentString" class="text-danger"></span>
+            </div>
+
+
+
+            <div class="form-group">
+                <label asp-for="UpdatePhoto"></label>
+                <input asp-for="UpdatePhoto" class="form-control" />
+                <span asp-validation-for="UpdatePhoto" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary"> Update</button>
+
+        </form>
+
+    </div>
+
+</div>

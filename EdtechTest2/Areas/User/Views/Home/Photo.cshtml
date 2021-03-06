@@ -1,0 +1,66 @@
+﻿@model EdtechTest2.Areas.User.ViewModels.UserPotoUploadViewModel
+@{
+    ViewData["Title"] = "Photo";
+}
+
+<h1>Update Photo</h1>
+
+<div class="container ">
+    <div>
+        <div class="column">
+
+            @if (Model.isPotoUploaded)
+            {
+                @*<div class="container " align="center">
+                    <img src="@Model.Link" alt="Avatar">
+
+                </div>*@
+
+                <div class="container " align="center">
+                    <img  src="@Model.Link" height="200" width="200" style="border-radius: 50%;" />
+
+
+                </div>
+            }
+            else
+            {
+                <div class="container " align="center">
+                    <img src="/images/@Model.Link" alt="Avatar" height="200" width="200" style="border-radius: 50%;">
+
+                </div>
+
+                @*<div class="container " align="center">
+                    <img class="circular--square" src="/images/@Model.Link" style="border-radius: 50%;" />
+
+
+                </div>*@
+            }
+
+
+
+            <div align="center">
+
+                <form method="post" enctype="multipart/form-data">
+                    <div class="text-danger validation-summary-valid" data-valmsg-summary="true">
+
+                    </div>
+                    <br />
+                    <br />
+
+                    <div class="form-group">
+                        <label for="Photo">Photo</label>
+                        <input class="form-control" type="file" id="Photo" name="Photo" />
+                        <span class="text-danger field-validation-valid" data-valmsg-for="Photo" data-valmsg-replace="true"></span>
+                    </div>
+                    <button type="submit" class="btn btn-primary"> Upoad Photo</button>
+
+                </form>
+            </div>
+
+
+
+
+
+        </div>
+        </div>
+</div>

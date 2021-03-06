@@ -1,0 +1,25 @@
+﻿@model EdtechTest2.Areas.Student.ViewModel.RefundPageViewModel
+@{
+    ViewData["Title"] = "RefundPage";
+}
+
+<h1>Refund  Page</h1>
+
+
+
+<form  method="post" >
+    <div class="form-group">
+        <label for="exampleInputEmail1">Refund Reason</label>
+        <input type="text" class="form-control" id="exampleInputEmail1"   asp-for="RefundReason" aria-describedby="emailHelp" placeholder="Enter email">
+    </div>
+
+    <input type="hidden" asp-for="CourseId" />
+  
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+
+
+
+
+

@@ -1,0 +1,17 @@
+﻿
+@{
+    ViewData["Title"] = "NotFound";
+}
+
+<h1 class="display-4">Not Found Error</h1>
+
+@if (ViewBag.message == "")
+{
+    <p class="lead p-2">Not Found What You Search For</p>
+
+}
+else
+{
+    <p class="lead p-2">@ViewBag.message</p>
+
+}

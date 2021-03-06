@@ -1,0 +1,55 @@
+﻿@model List<EdtechTest2.Areas.Student.ViewModel.MyCourseViewModel>;
+@{
+    ViewData["Title"] = "myCourses";
+}
+
+<h1 class="display-4">myCourses </h1>
+<hr class="my-4">
+
+@foreach (var item in Model)
+{
+    <div class="m-3 p-4 bg-light border border-light ">
+
+        <div class="row">
+
+            <div class="col-md-2">
+
+                <img src="@item.CoursePhotoLink" width="120" height="80" />
+
+            </div>
+
+
+            <div class="col-md-4">
+                <p>
+
+                    @item.CouseName
+
+                </p>
+            </div>
+
+
+
+            <div class="col-md-2">
+                <p>Purchased on - @item.PurchasedOn.ToShortDateString() </p>
+            </div>
+
+
+            <div class="col-md-2">
+                <a class="btn btn-secondary" asp-action="learn" asp-controller="Home" asp-area="Student" asp-route-id="@item.courseId">See Course</a>
+            </div>
+
+            <div class="col-md-2 ">
+                <a class="btn btn-secondary" asp-action="RefundPage" asp-controller="Payment" asp-area="Student" asp-route-id="@item.courseId">Refund Course</a>
+            </div>
+
+
+        </div>
+
+
+    </div>
+}
+
+
+
+
+

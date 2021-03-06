@@ -1,0 +1,312 @@
+﻿@model EdtechTest2.Areas.Instructor.ViewModels.CurrentCourseViewModel
+@using EdtechTest2.Utility
+@{
+    ViewData["Title"] = "CurrentCourseStatus";
+}
+
+
+
+    <div class="container" id="vue-app">
+
+
+
+        <div class="alert alert-dark" role="alert">
+
+            <p>
+                Course Id-  {{courseId= @Model.course.Id}}
+            </p>
+            <p>
+                Course Status - {{results.course.courseStatus}}
+            </p>
+            <hr class="my-4">
+
+
+
+
+
+            <div v-if="results.course.courseStatus=='@SD.CourseStatusDevelopment'">
+
+                <button v-on:click="sendForApproval(results.course.id)" class="btn btn-primary">Send For Approval </button>
+
+
+            </div>
+
+            <div v-if="results.course.courseStatus=='@SD.CourseStatusApproved'">
+                <button class="btn btn-primary" v-on:click="publishCourse(results.course.id)">Published The Course</button>
+
+
+
+            </div>
+
+            <div v-if="results.course.courseStatus=='@SD.CourseStatusRejected'">
+
+                <button class="btn btn-primary" v-on:click="sendForApproval(results.course.id)">Resend Send For Approval </button>
+
+
+
+            </div>
+
+            <div v-if="results.course.courseStatus=='@SD.CourseStatusPublished'">
+
+                <button class="btn btn-info" v-on:click="unpublishCourse(results.course.id)">UnPublish The Course </button>
+
+
+            </div>
+
+
+            <div v-if="results.course.courseStatus=='@SD.CourseStatusReview'">
+
+                <p>
+                    Course Has been Send For the Review it is Under The Review Period it Can Take 1 or 2 hours to get the course Reviewed
+
+                </p>
+
+
+            </div>
+
+
+            <div v-if="results.course.courseStatus=='@SD.CourseStatusUnPublished'">
+
+                <button class="btn btn-primary" v-on:click="publishCourse(results.course.id)">List The Course Again </button>
+
+
+
+
+
+            </div>
+
+
+
+
+            @*@if (SD.CourseStatusDevelopment == Model.course.CourseStatus)
+        {
+            <button class="btn btn-primary">Send For Approval </button>
+        }
+        else if (SD.CourseStatusApproved == Model.course.CourseStatus)
+        {
+            <button class="btn btn-primary">Published The Course</button>
+        }
+        else if (SD.CourseStatusRejected == Model.course.CourseStatus)
+        {
+            <button class="btn btn-primary">Resend Send For Approval </button>
+            <p> Reason for Disapproval </p>
+
+        }
+        else if (SD.CourseStatusDevelopment == Model.course.CourseStatus)
+        {
+            <button class="btn btn-primary">Send For Approval </button>
+        }
+
+        else if (SD.CourseStatusPublished == Model.course.CourseStatus)
+        {
+            <button class="btn btn-primary">UnPublish The Course </button>
+
+        }*@
+
+
+        </div>
+
+        <br />
+        <br />
+        <br />
+        <br />
+
+
+        <div v-if="results.course.courseStatus=='@SD.CourseStatusPublished'|| '@SD.CourseStatusUnPublished'">
+
+
+            <div class="d-flex justify-content-between ">
+                <div class="p-4 border border-dark bg-light">
+
+                    <h3 class="text-center"> Number of Students</h3>
+                    <h2 class="text-center"> @Model.numberofStudentEnrolled</h2>
+
+                </div>
+                <div class="p-4 border border-dark bg-light">
+
+                    <h3 class="text-center"> Revenue This Month</h3>
+                    <h2 class="text-center"> @Model.revenueThisMonth</h2>
+
+
+
+                </div>
+                <div class="p-4 border border-dark bg-light">
+
+                    <h3 class="text-center"> Revenue Today</h3>
+                    <h2 class="text-center"> @Model.totalrevenueToday</h2>
+
+
+
+                </div>
+
+                <div class="p-4 border border-dark bg-light">
+
+                    <h3 class="text-center">  Total Revenue </h3>
+                    <h2 class="text-center">@Model.totalrevenue </h2>
+
+
+                </div>
+
+            </div>
+
+            <br />
+            <br />
+            <br />
+            <br />
+
+            <h2> Comments on Course</h2>
+            <hr class="my-4">
+
+
+            <div class="border p-3">
+                <h3 class="text-left">Student Feedback</h3>
+                @{
+                    double sum = 0;
+                    @foreach (var item in Model.CourseRatings)
+                    {
+                        sum = sum + item.fullstar;
+                        if (item.halfstar == 1)
+                        {
+                            sum = sum + 0.5;
+
+                        }
+                    }
+
+
+                    var average = sum / Model.CourseRatings.Count();
+                }
+
+
+                <h1 class="display-4">@sum</h1>
+                <ul class="list-group">
+                    <li class="list-group-item">
+
+                        <button type="button" class="btn btn-outline-secondary btn-lg btn-block">
+                            <div class="row">
+
+
+                                <div class="col-md-5">
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-4">
+
+                                    <h1 class="lead">
+
+
+                                        @{
+
+                                            if (average % 1 == 0)
+                                            {
+                                                for (int y = 0; y < average; y++)
+                                                {
+                                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-star-fill m-0" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                                                    </svg>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                for (int y = 0; y < average; y++)
+                                                {
+                                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-star-fill m-0" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                                                    </svg>
+                                                }
+
+
+                                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-star-half m-0" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" d="M5.354 5.119L7.538.792A.516.516 0 0 1 8 .5c.183 0 .366.097.465.292l2.184 4.327 4.898.696A.537.537 0 0 1 16 6.32a.55.55 0 0 1-.17.445l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256a.519.519 0 0 1-.146.05c-.341.06-.668-.254-.6-.642l.83-4.73L.173 6.765a.55.55 0 0 1-.171-.403.59.59 0 0 1 .084-.302.513.513 0 0 1 .37-.245l4.898-.696zM8 12.027c.08 0 .16.018.232.056l3.686 1.894-.694-3.957a.564.564 0 0 1 .163-.505l2.906-2.77-4.052-.576a.525.525 0 0 1-.393-.288L8.002 2.223 8 2.226v9.8z" />
+                                                </svg>
+
+                                            }
+                                        }
+
+
+
+
+                                    </h1>
+                                </div>
+                                <div class="col-md-2">
+                                    (@Model.CourseRatings.Count())
+                                </div>
+                            </div>
+
+
+
+                        </button>
+
+
+
+                    </li>
+
+                </ul>
+
+                @foreach (var item in Model.CourseRatings)
+                {
+                    <div class="container">
+                        <h5 class="lead">
+
+
+                            @for (int x = 0; x < item.fullstar; x++)
+                            {
+                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-star-fill m-0" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                                </svg>
+                            }
+
+
+                            @if (item.halfstar == 1)
+                            {
+                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-star-half m-0" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M5.354 5.119L7.538.792A.516.516 0 0 1 8 .5c.183 0 .366.097.465.292l2.184 4.327 4.898.696A.537.537 0 0 1 16 6.32a.55.55 0 0 1-.17.445l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256a.519.519 0 0 1-.146.05c-.341.06-.668-.254-.6-.642l.83-4.73L.173 6.765a.55.55 0 0 1-.171-.403.59.59 0 0 1 .084-.302.513.513 0 0 1 .37-.245l4.898-.696zM8 12.027c.08 0 .16.018.232.056l3.686 1.894-.694-3.957a.564.564 0 0 1 .163-.505l2.906-2.77-4.052-.576a.525.525 0 0 1-.393-.288L8.002 2.223 8 2.226v9.8z" />
+                                </svg>
+
+                            }
+
+
+
+
+
+
+                        </h5>
+                        <p class="lead">
+                            @item.RatingComment
+                        </p>
+                        <br />
+                        <p class="font-weight-bold">@item.ApplicationUser.FirstName</p>
+
+                        <hr class="my-4">
+
+                    </div>
+                }
+
+
+
+
+
+            </div>
+
+
+            <br />
+            <br />
+            <br />
+            <br />
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+@section Scripts{
+
+<script src="~/js/currentCourseStatus.js"></script>
+
+}

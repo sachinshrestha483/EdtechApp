@@ -1,0 +1,696 @@
+﻿@model EdtechTest2.Areas.Instructor.ViewModels.CourseLandingPagePreviewViewModel
+
+
+@{
+    Layout = null;
+}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://unpkg.com/vue"></script>
+    <title>Course Landing Page</title>
+    <style>
+        .bs-example {
+            margin: 20px;
+        }
+
+        @@media screen and (min-width: 768px) {
+            .modal-dialog {
+                width: 700px; /* New width for default modal */
+            }
+
+            .modal-sm {
+                width: 350px; /* New width for small modal */
+            }
+        }
+
+        @@media screen and (min-width: 992px) {
+            .modal-lg {
+                width: 950px; /* New width for large modal */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="vue-app">
+        <div class="jumbotron jumbotron-fluid bg-dark text-white p-0 m-0">
+            <div class="container">
+                <div class="row ">
+
+                    <div class="col-sm-6 order-xs-2">
+                        <br />
+                        <br />
+                        <h1 class="display-4">@Model.CourseTitle</h1>
+                        <p class="lead">@Model.CourseSubtitle</p>
+                    </div>
+                    <div class="col-sm-6 order-xs-1">
+                        <br />
+                        <br />
+                        <div class="col mb-5">
+                            <div class="card">
+
+                                <a href="#largeModal" data-toggle="modal">
+
+                                    @*  <img src="https://picsum.photos/seed/picsum/450/250" class="card-img-top" alt="...">*@
+                                    <img src="@Model.CoursePhotoLink" class="card-img-top" width="450" height="250" alt="...">
+                                </a>
+
+                                <div class="card-body">
+                                    <h1 class="text-left text-dark">₹@Model.Price</h1>
+                                    <button type="button" class="btn btn-danger btn-lg btn-block">Add To Cart</button>
+                                    <br>
+                                    <button type="button" class="btn btn-outline-primary btn-lg btn-block">Buy Now</button>
+
+                                    <br>
+                                    <div class="text-dark">
+
+                                        @{
+                                            @if (Int16.Parse(@Model.TotalContentOfVideoHours) > 60)
+                                            {
+                                                var time = @Int16.Parse(@Model.TotalContentOfVideoHours) / 60;
+                                                <p>
+                                                    <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-camera-video" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                        <path fill-rule="evenodd" d="M2.667 3.5c-.645 0-1.167.522-1.167 1.167v6.666c0 .645.522 1.167 1.167 1.167h6.666c.645 0 1.167-.522 1.167-1.167V4.667c0-.645-.522-1.167-1.167-1.167H2.667zM.5 4.667C.5 3.47 1.47 2.5 2.667 2.5h6.666c1.197 0 2.167.97 2.167 2.167v6.666c0 1.197-.97 2.167-2.167 2.167H2.667A2.167 2.167 0 0 1 .5 11.333V4.667z" />
+                                                        <path fill-rule="evenodd" d="M11.25 5.65l2.768-1.605a.318.318 0 0 1 .482.263v7.384c0 .228-.26.393-.482.264l-2.767-1.605-.502.865 2.767 1.605c.859.498 1.984-.095 1.984-1.129V4.308c0-1.033-1.125-1.626-1.984-1.128L10.75 4.785l.502.865z" />
+                                                    </svg>&nbsp; @time Hours on-demand video
+                                                </p>
+
+
+                                            }
+                                            else
+                                            {
+
+
+                                                <p>
+                                                    <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-camera-video" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                        <path fill-rule="evenodd" d="M2.667 3.5c-.645 0-1.167.522-1.167 1.167v6.666c0 .645.522 1.167 1.167 1.167h6.666c.645 0 1.167-.522 1.167-1.167V4.667c0-.645-.522-1.167-1.167-1.167H2.667zM.5 4.667C.5 3.47 1.47 2.5 2.667 2.5h6.666c1.197 0 2.167.97 2.167 2.167v6.666c0 1.197-.97 2.167-2.167 2.167H2.667A2.167 2.167 0 0 1 .5 11.333V4.667z" />
+                                                        <path fill-rule="evenodd" d="M11.25 5.65l2.768-1.605a.318.318 0 0 1 .482.263v7.384c0 .228-.26.393-.482.264l-2.767-1.605-.502.865 2.767 1.605c.859.498 1.984-.095 1.984-1.129V4.308c0-1.033-1.125-1.626-1.984-1.128L10.75 4.785l.502.865z" />
+                                                    </svg> @Int16.Parse(@Model.TotalContentOfVideoHours)  Minutes on-demand video
+                                                </p>
+
+
+                                            }
+
+                                        }
+
+
+
+
+
+
+
+
+
+
+                                        <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-file-earmark-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" d="M4 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V5.707A1 1 0 0 0 13.707 5L10 1.293A1 1 0 0 0 9.293 1H4zm5 1v3a1 1 0 0 0 1 1h3L9 2z" />
+                                        </svg>  @Model.NumberofArtice Articles<br><br>
+                                        <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-clock-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z" />
+                                        </svg> Full lifetime access<br><br>
+                                        <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-tablet" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" d="M12 1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z" />
+                                            <path fill-rule="evenodd" d="M8 14a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
+                                        </svg>     Access on mobile and TV
+                                        <br><br>
+                                        <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-calendar-check" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z" />
+                                            <path fill-rule="evenodd" d="M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1zm1-3a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2H2z" />
+                                            <path fill-rule="evenodd" d="M3.5 0a.5.5 0 0 1 .5.5V1a.5.5 0 0 1-1 0V.5a.5.5 0 0 1 .5-.5zm9 0a.5.5 0 0 1 .5.5V1a.5.5 0 0 1-1 0V.5a.5.5 0 0 1 .5-.5z" />
+                                        </svg> Certificate of Completion <br>
+
+                                        <br>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div id="largeModal" class="modal">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        Course Preview: @Model.CourseTitle
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+                    </div>
+                    <div class="modal-body">
+
+                        
+                        <div v-if="videoSelected">
+
+                            <div class="embed-responsive embed-responsive-16by9">
+
+                                @*<video width="240" height="240" poster="https://firebasestorage.googleapis.com/v0/b/edtechapp-5815f.appspot.com/o/CoursePhoto%2F85b663f3-7509-49eb-b8a1-f02f375719e6_whatsapp.jpg?alt=media&amp;token=45b7b941-9797-4a34-a1f4-368076cd8481" controls>
+                                        <source v-bind:src="videoLink"
+                                                 type="video/mp4">
+                                    </video>*@
+
+
+                                <video width="240" id="myVideo" height="240" controls>
+                                    <source v-bind:src="videoLink"
+                                            type="video/mp4">
+                                </video>
+
+
+                                @*<iframe class="embed-responsive-item" v-bind:src="videoLink" allowfullscreen></iframe>*@
+                            </div>
+
+                        </div>
+                        <div v-else>
+
+                        </div>
+
+                        <br>
+                        <div align="center">
+                            <button class="btn btn-outline-secondary col-md-12" v-on:click="selectedVideo('@Model.CourseIntroVideoLink')">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <img src="@Model.CoursePhotoLink" height="80" width="150">
+
+                                    </div>
+                                    <div class="col-md-6"><p class="lead text-center">This is Video Name with Duration</p> </div>
+                                    <div class="col-md-2"><p class="lead text-center">2:00</p> </div>
+
+                                </div>
+                            </button>
+
+
+                            @foreach (var item in Model.FreeLecModel)
+                            {
+                                <hr class="my-4">
+                                @*Model.FreeLecModel.FirstOrDefault(f => f.lecture.id == item.lecture.id).VideoLink*@
+                                <button class="btn btn-outline-secondary col-md-12"  v-on:click="selectedVideo('@Model.FreeLecModel.FirstOrDefault(f => f.lecture.id == item.lecture.id).VideoLink')">
+                                    <div class="row">
+
+                                        <div class="col-md-4">
+                                            <img src="@Model.CoursePhotoLink" height="80" width="150">
+                                        </div>
+                                        <div class="col-md-6 "><p class="lead text-center my-auto">@item.lecture.Name</p> </div>
+                                        <div class="col-md-2 "><p class="lead text-center my-auto">@item.duration</p> </div>
+
+                                    </div>
+                                </button>
+
+
+
+
+                            }
+
+
+
+
+
+                            <hr class="my-4">
+
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+            </div>
+        </div>
+        <div class="jumbotron p-0">
+
+            <div class="container">
+                <h1 class="text-left p-2">What will You Learn </h1>
+                <hr class="my-4">
+                <div class="row container">
+
+
+
+                    @foreach (var item in Model.WhatWillYouLearns)
+                    {
+                        if (item.WhatWillYouLearnText == "" || item.WhatWillYouLearnText == null)
+                        {
+
+                        }
+
+                        else
+                        {
+                            <div class="col-md-6 col-sm-12">
+                                <h5>
+                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-check" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.236.236 0 0 1 .02-.022z" />
+                                    </svg>&nbsp;@item.WhatWillYouLearnText
+                                </h5>
+                            </div>
+                        }
+
+                    }
+
+
+
+
+
+
+
+
+
+
+                </div>
+
+            </div>
+            <br />
+            <br />
+            <br />
+
+        </div>
+        <div class="container">
+            <h1>Requirements</h1>
+
+            <ul>
+                @foreach (var item in Model.Requirements)
+                {
+                    if (item.RequirementText != null)
+                    {
+                        <li>@item.RequirementText</li>
+
+                    }
+                }
+
+
+
+            </ul>
+
+
+
+            <h1>Description</h1>
+
+
+            @Html.Raw(Model.Description)
+
+
+            <br />
+            <br />
+
+            <div id="accordion">
+
+                @{
+                    int i = 0;
+
+
+                    @foreach (var item in Model.SectionsWithLectures)
+
+
+
+                    {
+                        <div class="card p-1">
+                            <div class="card-header" id="heading_@i">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-outline-secondary btn-block  " data-toggle="collapse" data-target="#collapse_@i" aria-expanded="true" aria-controls="collapse_@i">
+
+                                        <div class="row">
+                                            <div class=" col-md-4 text-left">
+                                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" d="M8 3.5a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5H4a.5.5 0 0 1 0-1h3.5V4a.5.5 0 0 1 .5-.5z" />
+                                                    <path fill-rule="evenodd" d="M7.5 8a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1H8.5V12a.5.5 0 0 1-1 0V8z" />
+                                                </svg>
+
+                                                @item.section.Name
+                                            </div>
+
+
+                                            <div class="col-md-4 text-center">
+
+
+                                                @item.numberOfLectures Lectures
+                                            </div>
+
+                                            <div class="col-md-4 text-right">
+                                                @{
+                                                    @if (@item.LenghthOfSection >= 60)
+                                                    {
+                                                        <p>    @item.LenghthOfSection:00:00 </p>
+                                                    }
+
+                                                    else if (@item.LenghthOfSection == 0)
+                                                    {
+                                                        <p></p>
+                                                    }
+
+                                                    else if (@item.LenghthOfSection <= 60)
+                                                    {
+                                                        <p> 00:@item.LenghthOfSection:00</p>
+                                                    }
+
+
+
+
+
+
+                                                }
+
+
+
+
+
+
+
+
+
+
+                                            </div>
+
+
+                                        </div>
+
+
+
+                                    </button>
+                                </h5>
+                            </div>
+
+                            @*<div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">*@
+                            <div id="collapse_@i" class="collapse " aria-labelledby="heading_@i" data-parent="#accordion">
+
+                                <div class="card-body">
+
+                                    <ul class="list-group">
+
+
+                                        @foreach (var item1 in item.Lectures)
+                                        {
+                                            <li class="list-group-item">
+
+                                                <div class="row">
+                                                    <div class="col-md-6 text-left">
+
+                                                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-play-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M11.596 8.697l-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z" />
+                                                        </svg>
+
+                                                        @item1.Name
+
+
+                                                    </div>
+                                                    <div class="col-md-3 text-center">
+                                                        @foreach (var item5 in @Model.content)
+                                                        {
+                                                            if (item5.isPreview == true && item5.isDownlodableContent == false && item5.ContenType == Content.ContentTypes.Video)
+                                                            {
+                                                                <p>Preview</p>
+                                                            }
+
+
+                                                        }
+                                                    </div>
+                                                    <div class="col-md-3 text-right">
+
+                                                        @foreach (var item5 in @Model.content)
+                                                        {
+                                                            if (item5.LectureId == item1.id && item5.isDownlodableContent == false)
+                                                            {
+
+
+                                                                if (item5.ContenType == Content.ContentTypes.Video)
+                                                                {
+
+                                                                    if (item5.Length > 60)
+                                                                    {
+                                                                        <p> @item5.Length:00:00 </p>
+                                                                    }
+
+                                                                    else if (item5.Length == 0)
+                                                                    {
+                                                                        <p>00:01:00</p>
+                                                                    }
+
+                                                                    else
+                                                                    {
+                                                                        <p> 00:@item5.Length:00 </p>
+                                                                    }
+
+
+                                                                    //Article Icon
+
+                                                                    //<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-earmark-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                                    //    <path fill-rule="evenodd" d="M4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0H4zm5.5 1.5v2a1 1 0 0 0 1 1h2l-3-3z" />
+                                                                    //</svg>
+
+
+                                                                }
+
+
+                                                            }
+                                                        }
+                                                    </div>
+                                                </div>
+
+
+                                            </li>
+
+                                        }
+
+
+
+
+                                        @*<li class="list-group-item">
+
+
+
+                                                <div class="row">
+                                                    <div class="col-md-6 text-left">
+
+                                                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-earmark-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                            <path fill-rule="evenodd" d="M4 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V5.707A1 1 0 0 0 13.707 5L10 1.293A1 1 0 0 0 9.293 1H4zm5 1v3a1 1 0 0 0 1 1h3L9 2z" />
+                                                        </svg>
+
+                                                        BONUS: Learning Paths
+
+
+
+
+                                                    </div>
+                                                    <div class="col-md-3 text-center">
+
+
+
+                                                    </div>
+                                                    <div class="col-md-3 text-right">
+
+                                                        00:51
+                                                    </div>
+                                                </div>
+
+
+                                            </li>*@
+                                        @*<li class="list-group-item">Morbi leo risus</li>
+                                            <li class="list-group-item">Porta ac consectetur ac</li>
+                                            <li class="list-group-item">Vestibulum at eros</li>*@
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        i++;
+                    }
+                }
+                <br />
+                <br />
+                <div class="border p-3">
+                    <h1 class="text-left">About Author</h1>
+                    <div class="row">
+
+                        <div class="col-md-4 p-2" align="center">
+                            <img src="@Model.UserPhotoLink" alt="..." class="img-thumbnail">
+                        </div>
+
+                        <div class="col-md-8">
+                            @*<p>  My name is Kirill Eremenko and I am super-psyched that you are reading this!</p>
+                                <br />
+                                <p>  Professionally, I am a Data Science management consultant with over five years of experience in finance, retail, transport and other industries. I was trained by the best analytics mentors at Deloitte Australia and today I leverage Big Data to drive business strategy, revamp customer experience and revolutionize existing operational processes.</p>
+                                <br />
+
+                                From my courses you will straight away notice how I combine my real-life experience and academic background in Physics and Mathematics to deliver professional step-by-step coaching in the space of Data Science. I am also passionate about public speaking, and regularly present on Big Data at leading Australian universities and industry events.
+                                <br />
+
+                                <p>  To sum up, I am absolutely and utterly passionate about Data Science and I am looking forward to sharing my passion and knowledge with you!</p>*@
+
+                            @Html.Raw(Model.Author.Description)
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <br />
+
+            <div class="border p-3">
+                <h3 class="text-left">Student Feedback</h3>
+                <h1 class="display-4">4.5</h1>
+                <ul class="list-group">
+                    <li class="list-group-item">
+
+                        <button type="button" class="btn btn-outline-secondary btn-lg btn-block">
+                            <div class="row">
+
+
+                                <div class="col-md-5">
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-4">
+
+                                    <h1 class="lead">
+                                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-star-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                                        </svg><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-star-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                                        </svg><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-star-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                                        </svg>
+                                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-star-half m-0" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" d="M5.354 5.119L7.538.792A.516.516 0 0 1 8 .5c.183 0 .366.097.465.292l2.184 4.327 4.898.696A.537.537 0 0 1 16 6.32a.55.55 0 0 1-.17.445l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256a.519.519 0 0 1-.146.05c-.341.06-.668-.254-.6-.642l.83-4.73L.173 6.765a.55.55 0 0 1-.171-.403.59.59 0 0 1 .084-.302.513.513 0 0 1 .37-.245l4.898-.696zM8 12.027c.08 0 .16.018.232.056l3.686 1.894-.694-3.957a.564.564 0 0 1 .163-.505l2.906-2.77-4.052-.576a.525.525 0 0 1-.393-.288L8.002 2.223 8 2.226v9.8z" />
+                                        </svg>
+                                    </h1>
+                                </div>
+                                <div class="col-md-2">
+                                    12%
+                                </div>
+                            </div>
+
+
+
+                        </button>
+
+
+
+                    </li>
+
+                </ul>
+                <div class="container">
+                    <h5 class="lead">
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-star-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                        </svg><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-star-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                        </svg><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-star-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                        </svg>
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-star-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                        </svg>
+                    </h5>
+                    <p class="lead">
+                        fasbujfqhrjhwkltcyweityseivhnsek
+                        tgwetueytkweut
+                        tvwekyitofweiytiowev
+                        wevt6weyiseviouyiogv
+                    </p>
+
+                    <hr class="my-4">
+
+                </div>
+                <div class="container">
+                    <h5 class="lead">
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-star-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                        </svg><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-star-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                        </svg><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-star-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                        </svg>
+                    </h5>
+                    <p class="lead">
+                        fasbujfqhrjhwkltcyweityseivhnsek
+                        tgwetueytkweut
+                        tvwekyitofweiytiowev
+                        wevt6weyiseviouyiogv
+                    </p>
+
+                    <hr class="my-4">
+
+                </div> <div class="container">
+                    <h5 class="lead">
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-star-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                        </svg><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-star-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                        </svg><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-star-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                        </svg><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-star-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                        </svg>
+                    </h5>
+                    <p class="lead">
+                        fasbujfqhrjhwkltcyweityseivhnsek
+                        tgwetueytkweut
+                        tvwekyitofweiytiowev
+                        wevt6weyiseviouyiogv
+                    </p>
+
+                    <hr class="my-4">
+
+                </div> <div class="container">
+                    <h5 class="lead">
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-star-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                        </svg><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-star-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                        </svg><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-star-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                        </svg><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-star-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                        </svg>
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-star-half" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M5.354 5.119L7.538.792A.516.516 0 0 1 8 .5c.183 0 .366.097.465.292l2.184 4.327 4.898.696A.537.537 0 0 1 16 6.32a.55.55 0 0 1-.17.445l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256a.519.519 0 0 1-.146.05c-.341.06-.668-.254-.6-.642l.83-4.73L.173 6.765a.55.55 0 0 1-.171-.403.59.59 0 0 1 .084-.302.513.513 0 0 1 .37-.245l4.898-.696zM8 12.027c.08 0 .16.018.232.056l3.686 1.894-.694-3.957a.564.564 0 0 1 .163-.505l2.906-2.77-4.052-.576a.525.525 0 0 1-.393-.288L8.002 2.223 8 2.226v9.8z" />
+                        </svg>
+
+
+
+                    </h5>
+                    <p class="lead">
+                        fasbujfqhrjhwkltcyweityseivhnsek
+                        tgwetueytkweut
+                        tvwekyitofweiytiowev
+                        wevt6weyiseviouyiogv
+                    </p>
+
+                    <hr class="my-4">
+
+                </div>
+            </div>
+
+
+
+
+
+        </div>
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+    <script src="~/js/CourseLandingPagePreview.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,44 @@
+﻿@model EdtechTest2.Areas.Instructor.ViewModels.RequirementAndGoalsViewModel
+@{
+    ViewData["Title"] = "Requirementandgoals";
+}
+
+<div class="container">
+    <div align="center">
+        <div class="col-md-6 m-2">
+            <form method="post">
+                <div asp-validation-summary="All" class="text-danger">
+                </div>
+                <h1>What You Will Learn</h1>
+
+                @for (int i = 0; i < Model.WhatWillYouLearn.Length; i++)
+                {
+            <div class="form-group">
+                <input asp-for="@Model.WhatWillYouLearn[i].WhatWillYouLearnText" class="form-control" />
+                <input asp-for="@Model.WhatWillYouLearn[i].Id" type="hidden" class="form-control" />
+
+            </div>
+
+                }
+                <h1>Requirements</h1>
+                @for (int i = 0; i < Model.Requirements.Length; i++)
+                {
+            <div class="form-group">
+                <input asp-for="@Model.Requirements[i].RequirementText" class="form-control" />
+                <input asp-for="@Model.Requirements[i].id" type="hidden" class="form-control" />
+
+            </div>
+
+                }
+
+               <input type="hidden" asp-for="CourseId" />
+                <button type="submit" class="btn btn-primary"> Submit</button>
+               
+            </form>
+        </div>
+
+    </div>
+</div>
+
+
+

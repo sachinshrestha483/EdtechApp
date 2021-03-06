@@ -1,0 +1,368 @@
+﻿@model List<EdtechTest2.Areas.Instructor.ViewModels.CoursePreviewViewModel>;
+@{
+    ViewData["Title"] = "Learn";
+}
+
+
+
+
+
+@*<div id="vue-app">
+
+        {{courseId=@ViewBag.courseId}}
+
+        <h2>Course Id: {{results.courseId}} </h2>
+
+
+        <h2> Course dds: {{results.courseContents}}</h2>
+
+
+    </div>*@
+
+
+
+
+<div id="vue-app" class="container">
+    {{courseId=@ViewBag.courseId}}
+
+    <div v-if="loading">
+
+        <div class="container h-100 d-flex justify-content-center" style="height: 100%">
+
+            <div class="spinner-border text-info" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+
+        </div>
+
+
+
+
+    </div>
+
+    <div v-else>
+        <div>
+            <br>
+            <br>
+            <div class="row flex-column-reverse flex-lg-row">
+
+                <div class="col-md-4 col-sm-12">
+
+                    <div class="overflow-auto  bg-light" style="max-width: 400px; max-height: 750px;">
+
+
+
+                        <div v-for="(section,index) in results.contents" class="card" style="width: 23rem;">
+                            <div class="card-header btn btn-secondary text-dark text-left bg-light list-group-item " data-toggle="collapse" v-bind:href="'#collapseExample'+index" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                {{section.sectionName}}
+                            </div>
+                            <ul class=" collapse list-group list-group-flush  " v-bind:id="'collapseExample'+index">
+
+
+
+                                <div v-for="lecture in section.lecturesData">
+
+                                    <div v-bind:class="(currentLectureId==lecture.lecId)?'bg-primary':''">
+                                        <li v-bind:class="(currentLectureId==lecture.lecId)?'btn btn-secondary border border-dark border-bottom border-left border-right bg-primary  text-dark text-left list-group-item':'btn btn-secondary border border-dark border-bottom border-left border-right  text-dark text-left list-group-item'"
+                                            v-on:click="showLectureFunction(lecture)">
+
+
+                                            <div class="column">
+                                                <div class="row">
+                                                    <p> &nbsp; &nbsp;  {{lecture.name}}</p>
+                                                </div>
+
+                                                <div class=" row ">
+                                                    &nbsp; &nbsp;
+                                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-play-fill text-right" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M11.596 8.697l-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z" />
+                                                    </svg>
+                                                    <span class="badge badge-secondary">{{lecture.length}} Minutes</span>
+                                                </div>
+
+
+
+
+                                            </div>
+
+
+
+                                        </li>
+
+                                    </div>
+
+                                </div>
+
+
+
+
+                                @*<li class="btn btn-secondary text-dark text-left list-group-item">Cras justo odio</li>
+                                    <li class="btn btn-secondary text-dark text-left list-group-item">Cras justo odio</li>
+                                    <li class="btn btn-secondary text-dark text-left list-group-item">Cras justo odio</li>
+                                    <li class="btn btn-secondary text-dark text-left list-group-item">Cras justo odio</li>
+                                    <li class="btn btn-secondary text-dark text-left list-group-item">Cras justo odio</li>*@
+
+                            </ul>
+                        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    </div>
+
+
+
+
+                </div>
+                <div class="col-md-8 col-sm-12 container-fluid">
+
+
+
+                    <div v-if="showLecture">
+
+                        <div v-if="videoLink">
+
+
+
+                            <div class="embed-responsive embed-responsive-16by9 ">
+
+
+                                <iframe class="embed-responsive-item" v-bind:src='videoLink' allowfullscreen></iframe>
+                            </div>
+
+                        </div>
+                        <div v-else>
+                            <h3> Lecture Article </h3>
+                            <br />
+
+                            <div class="p-3 mb-2 bg-light text-dark" v-html="lectureArticle"></div>
+                        </div>
+
+
+
+
+                        <br>
+                        <p class="text-justify">Downlodable Content Below of Leture Description Section </p>
+
+                        <div class="jumbotron jumbotron-fluid">
+                            <div class="container">
+
+                                <button class="btn btn-secondary" v-on:click="showRatingFun">Rate The Course</button>
+
+                                <div class="container" v-if="showRating">
+                                    <br />
+                                    <br />
+                                  
+
+                                  @*  {{rating.data.rating}}*@
+
+
+                                <div v-if="oldRating">
+                                    <p>Update Rating</p>
+                                    <br />
+                                    <br />
+
+
+                                    <div class="btn btn-link p-0 m-0 btn-sm" v-on:click="firstStar">
+                                        <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-star-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" v-bind:d="o.star" />
+                                        </svg>
+                                    </div>
+
+
+
+
+
+                                    <div class="btn btn-link p-0 m-0 btn-sm" v-on:click="SecondStar">
+                                        <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-star-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path v-bind:d="s.star" />
+                                        </svg>
+                                    </div>
+
+
+                                    <div class="btn btn-link p-0 m-0 btn-sm" v-on:click="ThirdStar">
+                                        <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-star-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" v-bind:d="t.star" />
+                                        </svg>
+                                    </div>
+
+
+
+                                    <div class="btn btn-link p-0 m-0 btn-sm" v-on:click="fourthStar">
+                                        <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-star" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" v-bind:d="f.star" />
+                                        </svg>
+                                    </div>
+
+
+
+                                    <div class="btn btn-link p-0 m-0 btn-sm" v-on:click="fifthStar">
+                                        <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-star-half" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" v-bind:d="fi.star" />
+                                        </svg>
+                                    </div>
+
+
+
+                                    <br />
+                                    <br />
+
+
+                                    <br />
+                                    <textarea class="form-control" v-model="ratingText" id="exampleFormControlTextarea1" rows="10"></textarea>
+
+                                    <br />
+                                    <br />
+                                    <button type="button" v-on:click="changeRating" class="btn btn-primary m-2">Update Review</button>
+
+
+                                </div>
+
+
+                                <div v-if="NewRating">
+                                    <p>Add Rating</p>
+                                    <br />
+
+
+                                    <div class="btn btn-link p-0 m-0 btn-sm" v-on:click="firstStar">
+                                        <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-star-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" v-bind:d="o.star" />
+                                        </svg>
+                                    </div>
+
+
+
+
+
+                                    <div class="btn btn-link p-0 m-0 btn-sm" v-on:click="SecondStar">
+                                        <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-star-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path v-bind:d="s.star" />
+                                        </svg>
+                                    </div>
+
+
+                                    <div class="btn btn-link p-0 m-0 btn-sm" v-on:click="ThirdStar">
+                                        <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-star-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" v-bind:d="t.star" />
+                                        </svg>
+                                    </div>
+
+
+
+                                    <div class="btn btn-link p-0 m-0 btn-sm" v-on:click="fourthStar">
+                                        <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-star" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" v-bind:d="f.star" />
+                                        </svg>
+                                    </div>
+
+
+
+                                    <div class="btn btn-link p-0 m-0 btn-sm" v-on:click="fifthStar">
+                                        <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-star-half" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" v-bind:d="fi.star" />
+                                        </svg>
+                                    </div>
+
+                                    <br />
+                                    <br />
+                                    <br />
+                                    <textarea class="form-control"  v-model="ratingText" id="exampleFormControlTextarea1" rows="10"></textarea>
+                                    <br />
+                                    <br />
+                                    <button type="button"   v-on:click="submitRating"  class="btn btn-primary m-2">Submit Review</button>
+
+                                </div>
+
+                                </div>
+
+                                <hr class="my-4">
+
+
+                                <h3>Lecture Description</h3>
+                                <br />
+                                <br />
+
+                                <p v-html="lectureDescription">
+
+                                </p>
+
+
+
+                                <hr class="my-4">
+
+                                <h3>Downlodable Content</h3>
+                                <br />
+                                <br />
+
+
+                                <div class="row container">
+
+                                    <div v-for="item in lectureDownlodableContents">
+                                        <div class="column">
+
+                                            <a class="btn btn-info" v-bind:href="item.link" download rel="noopener noreferrer" target="_blank">
+
+
+                                                {{item.name}}
+                                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-download" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
+                                                    <path fill-rule="evenodd" d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z" />
+                                                </svg>
+
+                                            </a>
+                                        </div>
+                                        &nbsp;
+                                        &nbsp;
+                                        &nbsp;
+
+                                    </div>
+
+
+
+
+                                </div>
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+
+
+
+
+
+@section Scripts{
+
+    
+
+   
+
+    <script src="~/js/learnCourse.js"></script>
+
+
+}

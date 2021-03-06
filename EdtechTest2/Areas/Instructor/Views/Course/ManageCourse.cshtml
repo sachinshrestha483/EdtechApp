@@ -1,0 +1,261 @@
+﻿@model EdtechTest2.Areas.Instructor.ViewModels.ManageCourseViewModel
+
+
+<h1>ManageCourse</h1>
+<div id="vue-app">
+
+
+    <div class="col-md-12">
+
+        <form method="post">
+            <div asp-validation-summary="All" class="text-danger">
+
+            </div>
+
+            <div class="form-group">
+                <label asp-for="CourseTitle"></label>
+                <input asp-for="CourseTitle" class="form-control" />
+                <span asp-validation-for="CourseTitle" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="CourseSubtitle"></label>
+                <input asp-for="CourseSubtitle" class="form-control" />
+                <span asp-validation-for="CourseSubtitle" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description"></label>
+                <textarea asp-for="Description" class="form-control"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="Language"></label>
+                        @Html.DropDownListFor(m => m.Language, Model.LanguageList,
+                                 "Please select a Language", new { @class = "form-control" })
+                        <span asp-validation-for="Language" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="Level"></label>
+                        @Html.DropDownListFor(m => m.Level, Model.LevelList,
+                               "Please select a Level", new { @class = "form-control" })
+                        <span asp-validation-for="Level" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="Category"></label>
+                        @Html.DropDownListFor(m => m.Category, Model.CategoryList,
+                                "Please select a Category", new { @class = "form-control" })
+                        <span asp-validation-for="Category" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="CoursePrice"></label>
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">INR(₹)</span>
+                        </div>
+                        <input class="form-control" asp-for="CoursePrice" />
+                        <span asp-validation-for="CoursePrice" class="text-danger"></span>
+                    </div>
+                </div>
+                <input type="hidden" asp-for="CourseId" />
+
+            </div>
+            <br />
+
+
+            @*<div class="form-group">
+            <label asp-for="Course.topicName"></label>
+            <input asp-for="Course.topicName" class="form-control" />
+            <span asp-validation-for="Course.topicName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Course.topicName"></label>
+            <input asp-for="Course.topicName" class="form-control" />
+            <span asp-validation-for="Course.topicName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Course.topicName"></label>
+            <input asp-for="Course.topicName" class="form-control" />
+            <span asp-validation-for="Course.topicName" class="text-danger"></span>
+        </div>*@
+
+
+
+
+            <button type="submit" class="btn btn-primary">Save it</button>
+            <a class="btn btn-primary p-2" asp-action="Requirementandgoals" asp-controller="course" asp-area="Instructor" asp-route-id="@Model.CourseId"> Set Requirement And Goals </a>
+            <a class="btn btn-primary p-2" asp-action="CoursePreview" asp-controller="course" asp-route-id="@Model.CourseId" asp-area="Instructor">Preview Course</a>
+            <a class="btn btn-primary p-2" asp-action="CourseLandingPagePreview" asp-controller="course" asp-area="Instructor" asp-route-id="@Model.CourseId">Landing Page Preview</a>
+            <a class="btn btn-primary p-2" asp-action="Curriculum" asp-controller="course" asp-area="Instructor" asp-route-id="@Model.CourseId">Curriculum</a>
+            <a class="btn btn-primary p-2" asp-action="CourseSetting" asp-controller="Course" asp-route-id="@Model.CourseId">Course Setting</a>
+            <a class="btn btn-primary p-2" asp-action="CurrentCourseStatus" asp-controller="Course" asp-route-id="@Model.CourseId">Course Current Status</a>
+            <a class="btn btn-primary p-2" asp-action="AddCouponPage" asp-controller="Course" asp-route-id="@Model.CourseId">Set Coupons</a>
+
+
+
+        </form>
+
+
+        <form method='post' asp-action="UCoursePhoto" enctype="multipart/form-data">
+            <div asp-validation-summary="All" class="text-danger">
+
+            </div>
+
+
+            <br />
+            <label asp-for="CoursePhoto"></label>
+
+            <div class=" border">
+                <div class="row">
+                    <div class="col-md-3">
+                        <img src="@Model.coursePhotoLink" class="p-2" height="240" width="240" />
+
+                    </div>
+
+                    <div class="col-md-8">
+                        <br />
+                        <input asp-for="CoursePhoto" class="form-control" required />
+                        <input type="hidden" asp-for="CourseId" />
+                        <br />
+                        <p class="lead">
+                            Upload your course image here. It must meet our course image
+                            quality standards to be accepted.
+                            Important guidelines: 750x422 pixels; .jpg, .jpeg,. gif, or .png. no text on the image.
+                        </p>
+                        <button type="submit" class="btn btn-primary">Upload Photo</button>
+
+                    </div>
+                </div>
+                <span asp-validation-for="CoursePhoto" class="text-danger"></span>
+            </div>
+
+
+            &nbsp;
+
+
+
+
+        </form>
+
+
+
+
+
+
+
+
+
+
+        <form method='post' asp-action="UCourseIntroVideo" enctype="multipart/form-data" v-on:submit.prevent="processForm(@Model.CourseId)">
+            <div asp-validation-summary="All" class="text-danger">
+
+            </div>
+
+
+
+
+
+            <label asp-for="CourseIntroductionVideo"></label>
+
+            <div class=" border">
+                <div class="row">
+                    <div class="col-md-3 col-sm-12">
+                        @if (Model.IntroVideoPlayableLink == null)
+                        {
+                            <img src="@Model.coursePhotoLink" class="p-2" height="240" width="240" />
+
+                        }
+                        else
+                        {
+                            <video width="240" height="240" poster="@Model.coursePhotoLink" controls>
+                                <source src="@Model.IntroVideoPlayableLink" type="video/mp4">
+                            </video>
+                        }
+                    </div>
+
+                    <div class="col-md-8">
+
+                        <br />
+
+                        <div class="col">
+
+
+                            <input asp-for="CourseIntroductionVideo" class="form-control" v-on:change="FileUp" id="fileUp" required />
+                            <div v-if="uploading">
+                                @*<div class="spinner-border" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>*@
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped" role="progressbar" v-bind:style="'width:' +progress+'%'" aria-valuenow="12" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+
+                            </div>
+                            <input type="hidden" asp-for="CourseId" />
+
+                            <div v-if="showlengthbox">
+
+                            </div>
+                            <br />
+                            <br />
+                            <div class="row">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroup-sizing-sm">Video Length</span>
+                                </div>
+                                <input class="form-control col-sm-2" id="id1" disabled />
+
+
+                            </div>
+
+                            @*     <input type="hidden" asp-for="Duration" value=""  id="Videoduration"/>*@
+                            <br />
+                            @* <h1  id="vdlength"></h1>*@
+                            @*  <input asp-for="Duration" type="number" id="vdlengthI" />*@
+                            <p class="lead">
+
+                                <br />
+                                Upload your intro video here. It must meet our video
+                                protocols to be accepted.
+                                Important guidelines: .mp4,WebM no text on the image.
+                            </p>
+                            <button type="submit" class="btn btn-primary p-2">Upload Video</button>
+
+
+                        </div>
+
+
+
+
+                    </div>
+                </div>
+                <span asp-validation-for="CourseIntroductionVideo" class="text-danger"></span>
+            </div>
+
+            &nbsp;
+
+
+
+
+        </form>
+
+
+    </div>
+</div>
+@section Scripts{
+    <script src="~/js/VueDuration.js"></script>
+    <script>
+        tinymce.init({
+            selector: 'textarea',
+            plugins: 'advlist autolink lists link  charmap print preview hr anchor pagebreak',
+            toolbar_mode: 'floating',
+        });
+    </script>
+
+}

@@ -1,0 +1,168 @@
+﻿@model EdtechTest2.Areas.Identity.ViewModels.UserHomepageViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-3 border p-0">
+
+            <ul class="list-group">
+                <li class="list-group-item"> <a class="nav-link" asp-action="index" asp-controller="home" asp-area="User">Profile </a></li>
+                <li class="list-group-item"> <a class="nav-link" asp-action="profile" asp-controller="home" asp-area="User" asp-route-id="@Model.uniqueUserName">View Public Profile </a></li>
+                <li class="list-group-item"> <a class="nav-link" asp-action="photo" asp-controller="home" asp-area="User">Photo </a></li>
+                <li class="list-group-item"> <a class="nav-link" asp-action="Account" asp-controller="home" asp-area="User">Account </a></li>
+
+                <li class="list-group-item"> <a class="nav-link" href="#">Close Account </a></li>
+
+            </ul>
+
+
+        </div>
+        <div class="col-sm-9 border ">
+
+            <div class="row">
+
+                <div class="col-md-12 p-3">
+                    <form method="post">
+                        <div asp-validation-summary="All" class="text-danger">
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="uniqueUserName"></label>
+                            <input disabled asp-for="uniqueUserName" class="form-control" />
+                            <span asp-validation-for="uniqueUserName" class="text-danger"></span>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label asp-for="FirstName"></label>
+                            <input asp-for="FirstName" class="form-control" />
+                            <span asp-validation-for="FirstName" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="LastName"></label>
+                            <input asp-for="LastName" class="form-control" />
+                            <span asp-validation-for="LastName" class="text-danger"></span>
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <label asp-for="MobileNo"></label>
+                            <input asp-for="MobileNo" class="form-control" />
+                            <span asp-validation-for="MobileNo" class="text-danger"></span>
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <label asp-for="Email"></label>
+                            <input asp-for="Email" class="form-control" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <label asp-for="Title"></label>
+                            <input asp-for="Title" class="form-control" />
+                            <span asp-validation-for="Title" class="text-danger"></span>
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <label asp-for="Description"></label>
+                            <textarea asp-for="Description" class="form-control"></textarea>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+
+                        <br />
+
+                        <h4 class="lead">Links</h4>
+
+                        <hr class="my-4">
+
+                        <div class="form-group">
+                            <label asp-for="Website"></label>
+                            <input asp-for="Website" class="form-control" placeholder="Website(https://.....)" />
+                            <span asp-validation-for="Website" class="text-danger"></span>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label></label>
+
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroupPrepend">https://twitter.com/</span>
+                                </div>
+                                <input type="text" class="form-control" placeholder="Twitter Profile">
+                                <span asp-validation-for="TwitterName" class="text-danger"></span>
+
+
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label></label>
+
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroupPrepend">https://www.facebook.com/</span>
+                                </div>
+                                <input type="text" class="form-control" placeholder="LinkedIn Profile" asp-for="FacebookName">
+                                <span asp-validation-for="FacebookName" class="text-danger"></span>
+
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <label></label>
+
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroupPrepend">https://www.linkedin.com/</span>
+                                </div>
+                                <input type="text" class="form-control" placeholder="LinkedIn Profile" asp-for="LinkedInName">
+                                <span asp-validation-for="LinkedInName" class="text-danger"></span>
+
+                            </div>
+                        </div>
+
+                        <br />
+                        <br />
+
+                        <button type="submit" class="btn btn-primary"> Save</button>
+
+
+                    </form>
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+@*<script>
+    tinymce.init({
+        selector: 'textarea',
+        plugins: 'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+        toolbar_mode: 'floating',
+    });
+</script>*@
+@section Scripts{
+    <script>
+        tinymce.init({
+            selector: 'textarea',
+            plugins: 'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+            toolbar_mode: 'floating',
+        });
+    </script>
+
+}

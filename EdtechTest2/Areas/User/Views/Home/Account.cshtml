@@ -1,0 +1,85 @@
+﻿@model EdtechTest2.Areas.User.ViewModels.UserAccountSettingViewModel
+
+@{
+    ViewData["Title"] = "Account";
+}
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-3 border p-0">
+            <ul class="list-group">
+                <li class="list-group-item"> <a class="nav-link" asp-action="index" asp-controller="home" asp-area="User">Profile </a></li>
+                @* <li class="list-group-item"> <a class="nav-link" asp-action="profile" asp-controller="home" asp-area="User" asp-route-id="@Model.uniqueUserName">View Public Profile </a></li>*@
+                <li class="list-group-item"> <a class="nav-link" asp-action="photo" asp-controller="home" asp-area="User">Photo </a></li>
+                <li class="list-group-item"> <a class="nav-link" asp-action="Account" asp-controller="home" asp-area="User">Account </a></li>
+
+                <li class="list-group-item"> <a class="nav-link" href="#">Close Account </a></li>
+
+            </ul>
+
+
+        </div>
+        <div class="col-sm-9 border ">
+
+            <div class="row">
+
+                <div class="col-md-12 p-3">
+                    <form method="post">
+                        <p class="lead"> Change Password</p>
+
+
+                        <div asp-validation-summary="All" class="text-danger">
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="CurrentPassword"></label>
+                            <input asp-for="CurrentPassword" class="form-control" />
+                            <span asp-validation-for="CurrentPassword" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="NewPassword"></label>
+                            <input asp-for="NewPassword" class="form-control" />
+                            <span asp-validation-for="NewPassword" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="ConfirmNewPassword"></label>
+                            <input asp-for="ConfirmNewPassword" class="form-control" />
+                            <span asp-validation-for="ConfirmNewPassword" class="text-danger"></span>
+                        </div>
+
+
+                        <br />
+                        <br />
+
+                        <button type="submit" class="btn btn-primary"> Change Password</button>
+
+
+                    </form>
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+@*<script>
+        tinymce.init({
+            selector: 'textarea',
+            plugins: 'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+            toolbar_mode: 'floating',
+        });
+    </script>*@
+@section Scripts{
+    <script>
+        tinymce.init({
+            selector: 'textarea',
+            plugins: 'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+            toolbar_mode: 'floating',
+        });
+    </script>
+
+}

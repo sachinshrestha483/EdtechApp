@@ -1,0 +1,46 @@
+﻿@model LoginViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+    <div class="row">
+
+        <div class="col-md-12 m-2">
+            <form method="post">
+                <div asp-validation-summary="All" class="text-danger">
+                </div>
+                <div class="form-group">
+                    <label asp-for="Email"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Password"></label>
+                    <input asp-for="Password" class="form-control" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <div class="custom-checkbox">
+                        <label asp-for="RememberMe"></label>
+                        <input asp-for="RememberMe" />
+
+
+                    </div>
+                    <button type="submit" class="btn btn-primary"> Login</button>
+
+                </div>
+            </form>
+        </div>
+
+        <div class="col">
+            <div class="row">
+                <div class="col">
+                    <a class="btn btn-primary" asp-action="ForgotPassword" asp-controller="Password" asp-area="Identity">Forgot Password</a>
+                    &nbsp;&nbsp;&nbsp;&nbsp; <a class="btn btn-primary" asp-action="Index" asp-controller="ValidateEmailAddress" asp-area="Identity">Resend Email Verification</a>
+
+                </div>
+                
+
+            </div>
+        </div>
+    </div>

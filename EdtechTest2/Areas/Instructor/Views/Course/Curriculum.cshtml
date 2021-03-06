@@ -1,0 +1,55 @@
+﻿@model EdtechTest2.Areas.Instructor.ViewModels.AddSectionViewModel
+
+@{
+    ViewData["Title"] = "Curriculum";
+}
+    <div id="vue-app">
+        <h1>Curriculum</h1>
+        <h1 class="lead">Course Id  {{courseId= @Model.courseId}}</h1>
+
+
+        <form class="form-inline" v-on:submit.prevent="processForm(@Model.courseId)">
+            <div class="form-group mb-2">
+                <label for="staticEmail2" class="sr-only">Add Section</label>
+            </div>
+            <div class="form-group mx-sm-3 mb-2">
+                <input type="text" asp-for="@Model.sectionName" class="form-control" v-model="sectionName" id="inputPassword2" placeholder="Section Name">
+            </div>
+            <button type="submit"  class="btn btn-primary mb-2">Add Section</button>
+        </form>
+
+
+
+        <div class="Sections">
+            <br />
+
+            <div v-for="(item,key) in resultObj" class="p-2">
+                <div class="card w-75">
+                    <div class="card-body">
+                        <h5 class="card-title">{{item.name}}</h5>
+                        <a   v-bind:href="'/Instructor/Course/section/'+item.id"  class="btn btn-primary">Edit Section </a>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+
+
+        <div id="vueOperatrion" v-if="show">
+           
+           
+        </div>
+
+
+
+    </div>
+       
+        @section Scripts{
+
+            <script src="~/js/curriculum.js">
+
+            </script>
+
+        }

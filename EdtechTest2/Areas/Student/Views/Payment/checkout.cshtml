@@ -1,0 +1,57 @@
+﻿
+@model EdtechTest2.Areas.Student.ViewModel.CheckoutViewModel;
+@{
+    ViewData["Title"] = "checkout";
+    int total = Model.total * 100;
+}
+
+<h1>checkout</h1>
+
+<div class="jumbotron">
+    <h3>Checkout</h3>
+    <hr class="my-4">
+    <h3>Courses</h3>
+    <br />
+
+    @foreach (var item in Model.courses)
+    {
+        <h3>@item.topicName</h3>
+    }
+
+    <hr class="my-4">
+    <p>Total - @Model.total</p>
+    <p class="lead">
+        <form method="post" >
+            <script src="https://checkout.razorpay.com/v1/checkout.js"
+                    data-key="rzp_test_6pWr7K9xz2LCTh"
+                    data-amount="@total"
+                    @*//Amount in Paise*@
+                    data-name="Edtech App"
+                    data-description="Courses"
+                    data-image="https://razorpay.com/favicon.png"
+                    data-prefill.name="@Model.User.FirstName"+"@Model.User.LastName"
+                    data-prefill.email="@Model.User.Email"
+                    data-prefill.contact="@Model.User.PhoneNumber"
+                    data-theme.color="#F37254"></script>
+
+
+            <button type="submit" value="Pay Now" class="btn btn-primary razorpay-payment-button">
+            </button>
+            <input type="hidden" value="Hidden Element" name="hidden">
+
+        </form>
+        <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+    </p>
+</div>
+
+
+
+
+@section scripts{
+
+
+  
+       
+
+
+}

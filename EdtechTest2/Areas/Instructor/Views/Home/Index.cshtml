@@ -1,0 +1,103 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+
+
+@model EdtechTest2.Areas.Instructor.ViewModels.InstructorHomePageViewModel
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-3 border p-0">
+
+            <partial name="_InstructorSidebar" />
+
+        </div>
+        <div class="col-sm-9 border ">
+            <h1 class="display-4">Courses</h1>
+
+            <div class="row">
+
+                <div class="col-md-12 p-3">
+
+                    <a asp-action="Create" asp-controller="Course" asp-area="Instructor" class="btn btn-primary btn-lg " tabindex="-1" role="button" aria-disabled="true">Add New Course</a>
+                    <hr class="my-4">
+
+                    @*<div class="card">
+            <div class="card-header">
+                Featured
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Special title treatment</h5>
+                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+
+                          <div class="card w-90">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                            <a href="#" class="btn btn-primary">Button</a>
+                        </div>
+                    </div>
+
+                    *@
+                    @if (Model.Courses.Count > 0)
+                    {
+                        @foreach (var item in Model.Courses)
+                        {
+
+                            <br />
+                            <div class="card w-90">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <img src="@item.cloudImageLink"  height="120" width="120" class="p-2"/>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <h5 class="card-title text-left ">@item.topicName</h5>
+                                            <p class="card-text">CourseStatus-@item.CourseStatus</p>
+                                            <a  asp-action="ManageCourse" asp-controller="Course" asp-area="Instructor" asp-route-id="@item.Id" class="btn btn-primary">Manage Course</a>
+
+                                            @*   <p class="lead">@item.topicName</p>*@
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <br />
+                        }
+                    }
+
+
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+@*<script>
+        tinymce.init({
+            selector: 'textarea',
+            plugins: 'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+            toolbar_mode: 'floating',
+        });
+    </script>*@
+@section Scripts{
+    <script>
+        tinymce.init({
+            selector: 'textarea',
+            plugins: 'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+            toolbar_mode: 'floating',
+             
+        });
+    </script>
+
+}
